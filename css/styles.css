@@ -1,0 +1,24 @@
+*{
+    box-sizing: border-box;
+}
+
+body{
+    background-color: rgb(147, 150, 150);
+    
+}
+#tablero{
+    display: flex;
+    margin-top: 10vh;
+    flex-direction: column;
+    background-color: azure;
+    height: 500px;
+    width: 500px;
+    border: 1px solid black;
+}
+
+.celda{
+    width: 160px;
+    height: 160px;
+    margin: 3px;
+    border: 1px solid grey;
+}
