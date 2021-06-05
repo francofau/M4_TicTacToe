@@ -25,11 +25,10 @@
 </head>
 
 <body>
-    <div class='row container-fluid  d-flex justify-content-center'>
+    <div class='row container-fluid d-flex justify-content-center'>
         <h1 class="text-center m-4">TIC TAC TOE</h1>
         <div id="nombreJugadores">
-            <p class="text-center" id="jugador1">Jugador 1</p>
-            <p class="text-center" id="jugador2">Jugador 2</p>
+            <p class="text-center" id="parrafo-sup">Jugador VS Jugador </p>
         </div>
         <div id="tablero">
 
@@ -40,19 +39,25 @@
                 <div class='col-4 celda' id="celda-2" onclick="controlClick(this)"></div>
             </div>
             <div class='row'>
-                <div class='col-md-4 celda' id="celda-3" onclick="controlClick(this)"></div>
-                <div class='col-md-4 celda' id="celda-4" onclick="controlClick(this)"></div>
-                <div class='col-md-4 celda' id="celda-5" onclick="controlClick(this)"></div>
+                <div class='col-4 celda' id="celda-3" onclick="controlClick(this)"></div>
+                <div class='col-4 celda' id="celda-4" onclick="controlClick(this)"></div>
+                <div class='col-4 celda' id="celda-5" onclick="controlClick(this)"></div>
             </div>
             <div class='row'>
-                <div class='col-md-4 celda' id="celda-6" onclick="controlClick(this)"></div>
-                <div class='col-md-4 celda' id="celda-7" onclick="controlClick(this)"></div>
-                <div class='col-md-4 celda' id="celda-8" onclick="controlClick(this)"></div>
+                <div class='col-4 celda' id="celda-6" onclick="controlClick(this)"></div>
+                <div class='col-4 celda' id="celda-7" onclick="controlClick(this)"></div>
+                <div class='col-4 celda' id="celda-8" onclick="controlClick(this)"></div>
             </div>
         </div>
         <div id="mensajeInferior">
             <p class="text-center mt-2" id="mensaje"></p>
         </div>
+        <div class="text-center">
+            <button type="button" class="btn btn-danger" id="reset">Reiniciar</button>
+            <button type="button" class="btn btn-primary" id="ia">IA</button>
+
+        </div>
+
     </div>
     <!-- fin container principal -->
 
