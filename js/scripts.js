@@ -32,6 +32,9 @@ let indexJugador2 = 0;
 let ia = false;
 let existeOpcion = false;
 let idIA;
+let eliminarIA;
+let noBorrar = [];
+let turnoIA = 0;
 
 //función del click de cada celda
 let controlClick = (valor) => {
@@ -40,10 +43,8 @@ let controlClick = (valor) => {
     let id = valor.getAttribute('id');
     id = id.split('-')[1];
 
-
     //si hay 3 fichas del jugador borra una de ellas (pasamos a tener 2)
     if (fichas() == 3) {
-
         mensaje.html('Ya tienes el máximo de fichas permitido, debes retirar una')
         if (turno == $('#celda-' + id).html()) {
             borrarPosicion(id);
@@ -57,7 +58,6 @@ let controlClick = (valor) => {
             pintarCelda(id, turno); //pintamos la ficha del jugador en la celda seleccionada
             rellenarArrayTablero(turno, id) //marcamos la posición en el array del tablero
             turno = controlTurno(turno); //cambiamos el turno
-
         }
 
         //si la casilla esta ocupada, mandamos mensaje de error
@@ -66,15 +66,26 @@ let controlClick = (valor) => {
 
     //en caso de IA
     if (turno == 'O' && ia) {
-        if (existeOpcion == false) {
-            idIA = seleccionIA();
 
+        //si llevamos más de 2 turnos, significa que hay 3 fichas y la IA tiene que borrar una
+        if (turnoIA > 2) {
+            borrarPosicion(eliminarIA);
         }
 
+        //si la IA no tiene la opción de mejor jugada, elige una posición aleatoria
+        if (existeOpcion == false) {
+            idIA = seleccionIA();
+        }
+
+        //pintamos la ficha en la casilla y la ponemos en el array del tablero
         pintarCelda(idIA, turno);
-        rellenarArrayTablero(turno, idIA)
+        rellenarArrayTablero(turno, idIA);
+
+        //pasamos de turno y reinciamos los valores de la IA
         turno = controlTurno(turno);
+        noBorrar = [];
         existeOpcion = false;
+        turnoIA++;
     }
 
 }
@@ -97,8 +108,6 @@ let controlTurno = (val) => {
     }
 }
 
-//input de los nombres de los jugadores
-
 //función para enviar el contenido al array del tablero
 let rellenarArrayTablero = (jugador, posicion) => {
     tablero[posicion] = jugador;
@@ -107,6 +116,8 @@ let rellenarArrayTablero = (jugador, posicion) => {
 
 //comprobar opcionVictoria
 let comprobar = () => {
+
+    //variables para llenar el array de cada jugador con sus fichas
     indexJugador1 = 0;
     indexJugador2 = 0;
     let contador = 0;
@@ -137,9 +148,10 @@ let comprobar = () => {
                 if (fichasJugador1[index3] == opcionVictoria[index][index2]) {
                     contador++;
 
-                    //IA selecciona mejor defensa
+                    //IA selecciona la mejor defensa y las fichas que no debe borrar
                     if (contador == 2) {
                         mejorOpcionIA(index);
+                        eleccionBorrarIA(index);
                     }
                 }
             }
@@ -160,7 +172,7 @@ let comprobar = () => {
                 if (fichasJugador2[index3] == opcionVictoria[index][index2]) {
                     contador++;
 
-                    //IA selecciona mejor ataque
+                    //IA selecciona el mejor ataque
                     if (contador == 2) {
                         mejorOpcionIA(index);
                     }
@@ -168,13 +180,14 @@ let comprobar = () => {
             }
         }
 
-        //si el contador de aciertos del jugador 2 llega a 3
+        //si el contador de aciertos del jugador 2 llega a 3 gana y si la IA está activa, gana la IA
         if (contador == 3) alert('GANADOR JUGADOR 2');
+        if (contador == 3 && !ia) alert('GANA LA IA');
         contador = 0;
     }
 }
 
-//comprobar número fichas
+//comprobar número fichas de los jugadores
 let fichas = () => {
     let rep = 0;
 
@@ -195,9 +208,14 @@ let borrarPosicion = (posicion) => {
 
 //reiniciar partida
 let reiniciar = () => {
+
+    //reinicia variables
     fichasJugador1 = [];
     fichasJugador2 = [];
     tablero = ['', '', '', '', '', '', '', '', ''];
+    turnoIA = 0;
+
+    //reinicia tablero
     $('.celda').html('');
 }
 
@@ -205,7 +223,6 @@ let reiniciar = () => {
 $('#reset').click(function() {
     reiniciar()
 });
-
 
 //--------IA--------//
 
@@ -223,15 +240,17 @@ $('#ia').click(function() {
 //IA selecciona una tirada aleatoria
 let seleccionIA = () => {
 
+    //si la posición central esta libre, siempre es la mejor opción
     if (tablero[4] == '') {
         return idIA = 4;
-    } else {
+    }
+
+    //si no tiene mejor opción, pone la ficha en la primera posición vacía
+    else {
         for (let index = 0; index < tablero.length; index++) {
             if (tablero[index] == '') {
-                console.log('Tirada aleatoria: ' + index);
                 return index;
             }
-
         }
     }
 }
@@ -240,12 +259,39 @@ let seleccionIA = () => {
 let mejorOpcionIA = (index) => {
 
     for (let index2 = 0; index2 < 3; index2++) {
+
+        //recorre solo las posiciones del array bidimensional que pueden dar victoria 
         if (tablero[opcionVictoria[index][index2]] == '') {
-            console.log('Mejor tirada: ' + opcionVictoria[index][index2]);
+
+            //si el jugador o la IA tiene 2 fichas de 3 para ganar, la IA ocupa la posición vacía que resta para ganar
             existeOpcion = true;
             idIA = opcionVictoria[index][index2];
         }
     }
 }
 
-//borrar posición IA
+//IA selecciona la mejor posición para borrar
+let eleccionBorrarIA = (index) => {
+
+    //miramos en el array de victoria possibles las opciones que necesita el jugador para ganar
+    for (let index2 = 0; index2 < 3; index2++) {
+        if (tablero[opcionVictoria[index][index2]] == 'O' && !noBorrar.includes(opcionVictoria[index][index2])) {
+
+            //si ocupamos dichas posiciones, las guardamos en un array para no borrarlas
+            noBorrar.push(opcionVictoria[index][index2]);
+        }
+    }
+
+    //recorremos el tablero para elegir la mejor opción que borrar
+    for (let index3 = 0; index3 < tablero.length; index3++) {
+
+        //recorremos el array de las posiciones intocables
+        for (let index4 = 0; index4 < noBorrar.length; index4++) {
+
+            //guardamos en una variable la posiciones que estamos ocupando y no esté en las intocables
+            if (tablero[index3] == 'O' && !noBorrar.includes(index3)) {
+                eliminarIA = index3;
+            }
+        }
+    }
+}
