@@ -57,17 +57,18 @@ let controlClick = (valor) => {
             pintarCelda(id, turno); //pintamos la ficha del jugador en la celda seleccionada
             rellenarArrayTablero(turno, id) //marcamos la posición en el array del tablero
             turno = controlTurno(turno); //cambiamos el turno
+
         }
 
         //si la casilla esta ocupada, mandamos mensaje de error
         else mensaje.html('Error, casilla no válida');
-
     }
 
     //en caso de IA
     if (turno == 'O' && ia) {
         if (existeOpcion == false) {
             idIA = seleccionIA();
+
         }
 
         pintarCelda(idIA, turno);
@@ -75,7 +76,6 @@ let controlClick = (valor) => {
         turno = controlTurno(turno);
         existeOpcion = false;
     }
-
 
 }
 
@@ -139,8 +139,7 @@ let comprobar = () => {
 
                     //IA selecciona mejor defensa
                     if (contador == 2) {
-                        idIA = mejorOpcionIA(index);
-                        existeOpcion = true;
+                        mejorOpcionIA(index);
                     }
                 }
             }
@@ -162,9 +161,8 @@ let comprobar = () => {
                     contador++;
 
                     //IA selecciona mejor ataque
-                    if (contador == 2 && existeOpcion == false) {
-                        idIA = mejorOpcionIA(index);
-                        existeOpcion = true;
+                    if (contador == 2) {
+                        mejorOpcionIA(index);
                     }
                 }
             }
@@ -201,10 +199,9 @@ let reiniciar = () => {
     fichasJugador2 = [];
     tablero = ['', '', '', '', '', '', '', '', ''];
     $('.celda').html('');
-
 }
 
-//evento de excucha del botón para lanzar la función de reiniciar
+//evento de escucha del botón para lanzar la función de reiniciar
 $('#reset').click(function() {
     reiniciar()
 });
@@ -212,6 +209,7 @@ $('#reset').click(function() {
 
 //--------IA--------//
 
+//activa o desactiva el booleano de la IA y el texto superior
 $('#ia').click(function() {
     if (ia == false) {
         ia = true;
@@ -220,9 +218,9 @@ $('#ia').click(function() {
         ia = false;
         $('#parrafo-sup').html('Jugador VS Jugador ')
     }
-
 });
 
+//IA selecciona una tirada aleatoria
 let seleccionIA = () => {
 
     if (tablero[4] == '') {
@@ -231,21 +229,23 @@ let seleccionIA = () => {
         for (let index = 0; index < tablero.length; index++) {
             if (tablero[index] == '') {
                 console.log('Tirada aleatoria: ' + index);
-                return idIA = index;
+                return index;
             }
 
         }
     }
-
 }
 
+//IA calcula la mejor opción de victoria de ambos jugadores
 let mejorOpcionIA = (index) => {
 
     for (let index2 = 0; index2 < 3; index2++) {
         if (tablero[opcionVictoria[index][index2]] == '') {
             console.log('Mejor tirada: ' + opcionVictoria[index][index2]);
-            return opcionVictoria[index][index2];
+            existeOpcion = true;
+            idIA = opcionVictoria[index][index2];
         }
-
     }
 }
+
+//borrar posición IA
