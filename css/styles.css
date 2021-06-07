@@ -1,24 +1,57 @@
-*{
+* {
     box-sizing: border-box;
 }
 
-body{
-    background-color: rgb(147, 150, 150);
-    
+body {
+    background-color: rgb(238, 238, 238);
 }
-#tablero{
+
+#tablero {
     display: flex;
-    margin-top: 10vh;
     flex-direction: column;
-    background-color: azure;
-    height: 500px;
-    width: 500px;
+    flex-wrap: nowrap;
+    text-align: center;
+    background-color: rgb(200, 202, 202);
+    height: 315px;
+    width: 80%;
     border: 1px solid black;
 }
 
-.celda{
-    width: 160px;
-    height: 160px;
-    margin: 3px;
-    border: 1px solid grey;
+.celda {
+    width: 30%;
+    height: 100px;
+    margin: 2px;
+    border: 1px solid rgb(167, 166, 166);
+    background-color: white;
+    font-size: xx-large;
+    padding-top: 20px;
+}
+
+.celda:hover {
+    background-color: rgb(214, 214, 214);
+}
+
+.row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn {
+    width: 100px;
+}
+
+
+/* Media Query para tamaño fijo en pantallas a partir de 800px*/
+
+@media only screen and (min-width: 800px) {
+    #tablero {
+        height: 630px;
+        width: 630px;
+    }
+    .celda {
+        height: 205px;
+        width: 205px;
+        padding-top: 60px;
+    }
 }

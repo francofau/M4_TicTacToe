@@ -1,53 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- JQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+
     <!-- Ajax -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <!-- Bootstrap-->
+
+    <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
     <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
-    <!-- CSS propio -->
+
+    <!-- JQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+
+    <!-- Style -->
     <link rel="stylesheet" href="css/styles.css">
-    <title>TicTacToe</title>
+
+    <title>Tic Tac Toe</title>
 </head>
+
 <body>
-<div class='row container-fluid  d-flex justify-content-center'>
-     <div id="nombreJugadores">
-        <p>Jugador 1</p>
-        <p>Jugador 2</p>
-    </div>    
-    <div id="tablero"><!-- tablero de juego que contiene las posiciones -->
-        <div class='row'>
-            <div class='col-md-4 celda'>0</div>
-            <div class='col-md-4 celda'>1</div>
-            <div class='col-md-4 celda'>2</div>
+    <div class='row container-fluid d-flex justify-content-center'>
+        <h1 class="text-center m-4">TIC TAC TOE</h1>
+        <div id="nombreJugadores">
+            <p class="text-center" id="parrafo-sup">Jugador VS Jugador </p>
         </div>
-        <div class='row'>
-            <div class='col-md-4 celda'>3</div>
-            <div class='col-md-4 celda'>4</div>
-            <div class='col-md-4 celda'>5</div>
+        <div id="tablero">
+
+            <!-- tablero de juego que contiene las posiciones -->
+            <div class='row'>
+                <div class='col-4 celda' id="celda-0" onclick="controlClick(this)"></div>
+                <div class='col-4 celda' id="celda-1" onclick="controlClick(this)"></div>
+                <div class='col-4 celda' id="celda-2" onclick="controlClick(this)"></div>
+            </div>
+            <div class='row'>
+                <div class='col-4 celda' id="celda-3" onclick="controlClick(this)"></div>
+                <div class='col-4 celda' id="celda-4" onclick="controlClick(this)"></div>
+                <div class='col-4 celda' id="celda-5" onclick="controlClick(this)"></div>
+            </div>
+            <div class='row'>
+                <div class='col-4 celda' id="celda-6" onclick="controlClick(this)"></div>
+                <div class='col-4 celda' id="celda-7" onclick="controlClick(this)"></div>
+                <div class='col-4 celda' id="celda-8" onclick="controlClick(this)"></div>
+            </div>
         </div>
-        <div class='row'>
-            <div class='col-md-4 celda'>6</div>
-            <div class='col-md-4 celda'>7</div>
-            <div class='col-md-4 celda'>8</div>
-        </div>        
+        <div id="mensajeInferior">
+            <p class="text-center mt-2" id="mensaje"></p>
+        </div>
+        <div class="text-center">
+            <button type="button" class="btn btn-danger" id="reset">Reiniciar</button>
+            <button type="button" class="btn btn-primary" id="ia">IA</button>
+
+        </div>
+
     </div>
-    <div id="mensajeInferior">
-        <p>Mostrar mensajes/alertas</p>
-    </div>
-</div><!-- fin container principal -->
-
-
-
+    <!-- fin container principal -->
 
     <!-- JavaScript -->
     <script src="js/scripts.js"></script>
 </body>
+
 </html>
