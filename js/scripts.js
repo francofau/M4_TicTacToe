@@ -158,7 +158,7 @@ let comprobar = () => {
         }
 
         //si el contador de aciertos del jugador 1 llega a 3
-        if (contador == 3) alert('GANADOR JUGADOR 1');
+        if (contador == 3) swal("Felicidades!", "Jugador 1 ha ganado", "success");
         contador = 0;
     }
 
@@ -182,8 +182,8 @@ let comprobar = () => {
         }
 
         //si el contador de aciertos del jugador 2 llega a 3 gana y si la IA está activa, gana la IA
-        if (contador == 3 && !ia) alert('GANADOR JUGADOR 2');
-        if (contador == 3 && ia) alert('GANA LA IA');
+        if (contador == 3 && !ia) swal("Felicidades!", "Jugador 2 ha ganado", "success");
+        if (contador == 3 && ia) swal("Mala suerte!", "Gana la IA", "success");
         contador = 0;
     }
 }
