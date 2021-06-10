@@ -175,14 +175,15 @@ let comprobar = () => {
                     //IA selecciona el mejor ataque
                     if (contador == 2) {
                         mejorOpcionIA(index);
+                        eleccionBorrarIA(index);
                     }
                 }
             }
         }
 
         //si el contador de aciertos del jugador 2 llega a 3 gana y si la IA está activa, gana la IA
-        if (contador == 3) alert('GANADOR JUGADOR 2');
-        if (contador == 3 && !ia) alert('GANA LA IA');
+        if (contador == 3 && !ia) alert('GANADOR JUGADOR 2');
+        if (contador == 3 && ia) alert('GANA LA IA');
         contador = 0;
     }
 }
@@ -214,6 +215,7 @@ let reiniciar = () => {
     fichasJugador2 = [];
     tablero = ['', '', '', '', '', '', '', '', ''];
     turnoIA = 0;
+    turno = 'X';
 
     //reinicia tablero
     $('.celda').html('');
